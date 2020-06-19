@@ -2,6 +2,8 @@
 <strong>Network Architecture</strong></header><article class=markdown><h2 id=network-architecture>Network Architecture</h2><p>The network setup is of la1r.com is not a simple one, this due to several reasons:</p><ul><li>Multi-site setup, with servers on different locations, connected either directly or through vpn</li><li>Multi-tenancy setup, multiple layers of access on the network need to be implemented</li><li>Multiple vpn endpoints, this to connect the different tenants</li><li>Multiple servers within a single Kubernetes cluster.</li><li>Virtual network interfaces with virtual network policies in Kubernetes.</li><li>Multiple networking hardware devices such as routers, managed switches and IOT devices.</li></ul><p>To break down these complexities we can split the network architecture into two parts:</p><ol><li>Technical Layer - (<a href="https://en.wikipedia.org/wiki/OSI_model#:~:text=The%20Open%20Systems%20Interconnection%20model,underlying%20internal%20structure%20and%20technology">OSI</a> layers 1 - 4)</li><li>Data Layer - (<a href="https://en.wikipedia.org/wiki/OSI_model#:~:text=The%20Open%20Systems%20Interconnection%20model,underlying%20internal%20structure%20and%20technology">OSI</a> layers 5 - 7)</li></ol><h3 id=technical-layer>Technical Layer</h3><p>The Technical Layer is structured as follows:
 <img src=images/voorbeeld.png alt>
 <img src=/images/voorbeeld.png alt>
+<img src=images/voorbeeld.jpg alt>
+<img src=/images/voorbeeld.jpg alt>
 <img src=static/images/voorbeeld.png alt>
 <img src=/static/images/voorbeeld.png alt>
 <img src=%22images/voorbeeld.png%22 alt>
@@ -9,5 +11,5 @@
 <img src=%22static/images/voorbeeld.png%22 alt>
 <img src=%22/static/images/voorbeeld.png%22 alt></p><h3 id=data-layer>Data Layer</h3><p>The Data Layer is structured as follows:
 <img src=/la1r-diagrams-Network%20Arch%20-%20Data%20Layer.png alt>
-<img src=la1r-diagrams-Network%20Arch%20-%20Data%20Layer.png alt></p></article><div class="book-footer justify-between"><div><a class="flex align-center" href=https://github.com/basraven/la1r/commit/10c804c17cd33215d540463abd5ee2843a0c6ca3 title="Last modified by Sebastiaan Raven | Jun 19, 2020" target=_blank><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<img src=la1r-diagrams-Network%20Arch%20-%20Data%20Layer.png alt></p></article><div class="book-footer justify-between"><div><a class="flex align-center" href=https://github.com/basraven/la1r/commit/267ce677d5894a42aba07b27995b4d9a7512a168 title="Last modified by Sebastiaan Raven | Jun 19, 2020" target=_blank><img src=/svg/calendar.svg class=book-icon alt=Calendar>
 <span>Jun 19, 2020</span></a></div></div></div></main></body></html>
