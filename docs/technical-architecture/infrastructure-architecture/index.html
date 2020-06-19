@@ -1,9 +1,543 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Infrastructure Architecture"><meta property="og:title" content><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:url" content="https://la1r.com/docs/technical-architecture/infrastructure-architecture/"><title>Infrastructure Architecture | La1r</title><link rel=icon href=/favicon.ico type=image/x-icon><link rel=stylesheet href=/book.min.33d6352380c6fa5a486e3fdc82760cff17265d510d88cb5073b74112c8bfee2b.css integrity="sha256-M9Y1I4DG+lpIbj/cgnYM/xcmXVENiMtQc7dBEsi/7is="><script defer src=/en.search.min.42556fd470574a12f70bff23a19e91be382b96a3eeb1f21ed5a2f1ec4df2bf15.js integrity="sha256-QlVv1HBXShL3C/8joZ6RvjgrlqPusfIe1aLx7E3yvxU="></script><link rel=alternate type=application/rss+xml href=https://la1r.com/docs/technical-architecture/infrastructure-architecture/index.xml title=La1r></head><body><input type=checkbox class=hidden id=menu-control><main class="flex container"><aside class="book-menu fixed"><nav><h2 class=book-brand><a href=https://la1r.com/><span class=brand-title>| &nbsp;&nbsp;La1r</span><img src=/svg/lair-icon-dark.svg alt=Logo></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64><div class="book-search-spinner spinner hidden"></div><ul id=book-search-results></ul></div><ul class=pre-inject-menu><li><strong><a href=/>Introduction</a></strong></li></ul><ul><li><a href=/docs/capability-architecture/>Capability Architecture</a><ul><li><a href=/docs/capability-architecture/event-specifications/>Event Specifications</a><ul></ul></li><li><a href=/docs/capability-architecture/governance-catalogs/>Governance Catalogs</a><ul></ul></li></ul></li><li><a href=/docs/technical-architecture/>Technical Architecture</a><ul><li><a href=/docs/technical-architecture/application-architecture/>Application Architecture</a><ul></ul></li><li><a href=/docs/technical-architecture/data-architecture/>Data Architecture</a><ul></ul></li><li><a href=/docs/technical-architecture/infrastructure-architecture/ class=active>Infrastructure Architecture</a><ul><li><a href=/docs/technical-architecture/infrastructure-architecture/network-architecture/>Network Architecture</a><ul></ul></li></ul></li><li><a href=/docs/technical-architecture/security-architecture/>Security Architecture</a><ul></ul></li></ul></li><li><a href=/docs/planning/>Planning</a><ul></ul></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class="flex align-center justify-between book-header"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
-<strong>Infrastructure Architecture</strong></header><article class=markdown><h1 id=infrastructure-architecture>Infrastructure Architecture</h1><p>The infrastructure setup is one of the biggest topics of this project in terms of size and complexity.</p><blockquote><p>TODO: Infrastructure Arch Diagram</p></blockquote><p>Two components are used to setup this architecture:</p><ol><li>Ansible, for bare metal server initialization and bare metal services.</li><li>Kubernetes, for running processes which can be containerized</li></ol><p>The aim is to put as many of the services in Kubernetes, keeping the Ansible footprint as small as possible.
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Infrastructure Architecture"><meta property="og:title" content="" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://la1r.com/docs/technical-architecture/infrastructure-architecture/" />
+
+<title>Infrastructure Architecture | La1r</title>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/book.min.33d6352380c6fa5a486e3fdc82760cff17265d510d88cb5073b74112c8bfee2b.css" integrity="sha256-M9Y1I4DG&#43;lpIbj/cgnYM/xcmXVENiMtQc7dBEsi/7is=">
+
+
+<script defer src="/en.search.min.42556fd470574a12f70bff23a19e91be382b96a3eeb1f21ed5a2f1ec4df2bf15.js" integrity="sha256-QlVv1HBXShL3C/8joZ6RvjgrlqPusfIe1aLx7E3yvxU="></script>
+
+<link rel="alternate" type="application/rss+xml" href="https://la1r.com/docs/technical-architecture/infrastructure-architecture/index.xml" title="La1r" />
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://la1r.com/">
+    <span class="brand-title">| &nbsp;&nbsp;La1r</span><img src='/svg/lair-icon-dark.svg' alt="Logo" /></a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+<ul class="pre-inject-menu">
+  <li>
+    <strong>
+      
+      <a href="/" >Introduction  </a>
+    </strong>
+  </li>
+</ul>  
+  
+
+    
+
+  
+  
+
+
+
+
+
+ 
+  
+    
+
+
+
+
+  
+  <ul>
+    
+      
+        
+
+  <li >
+    
+      
+
+  <a href="/docs/capability-architecture/" >
+      Capability Architecture
+  </a>
+
+
+    
+
+    
+
+
+
+
+  
+  <ul>
+    
+      
+        
+
+  <li >
+    
+      
+
+  <a href="/docs/capability-architecture/event-specifications/" >
+      Event Specifications
+  </a>
+
+
+    
+
+    
+
+
+
+
+  
+  <ul>
+    
+  </ul>
+  
+
+
+
+  </li>
+
+
+      
+    
+      
+        
+
+  <li >
+    
+      
+
+  <a href="/docs/capability-architecture/governance-catalogs/" >
+      Governance Catalogs
+  </a>
+
+
+    
+
+    
+
+
+
+
+  
+  <ul>
+    
+  </ul>
+  
+
+
+
+  </li>
+
+
+      
+    
+  </ul>
+  
+
+
+
+  </li>
+
+
+      
+    
+      
+        
+
+  <li >
+    
+      
+
+  <a href="/docs/technical-architecture/" >
+      Technical Architecture
+  </a>
+
+
+    
+
+    
+
+
+
+
+  
+  <ul>
+    
+      
+        
+
+  <li >
+    
+      
+
+  <a href="/docs/technical-architecture/application-architecture/" >
+      Application Architecture
+  </a>
+
+
+    
+
+    
+
+
+
+
+  
+  <ul>
+    
+  </ul>
+  
+
+
+
+  </li>
+
+
+      
+    
+      
+        
+
+  <li >
+    
+      
+
+  <a href="/docs/technical-architecture/data-architecture/" >
+      Data Architecture
+  </a>
+
+
+    
+
+    
+
+
+
+
+  
+  <ul>
+    
+  </ul>
+  
+
+
+
+  </li>
+
+
+      
+    
+      
+        
+
+  <li >
+    
+      
+
+  <a href="/docs/technical-architecture/infrastructure-architecture/"  class="active">
+      Infrastructure Architecture
+  </a>
+
+
+    
+
+    
+
+
+
+
+  
+  <ul>
+    
+      
+        
+
+  <li >
+    
+      
+
+  <a href="/docs/technical-architecture/infrastructure-architecture/network-architecture/" >
+      Network Architecture
+  </a>
+
+
+    
+
+    
+
+
+
+
+  
+  <ul>
+    
+  </ul>
+  
+
+
+
+  </li>
+
+
+      
+    
+  </ul>
+  
+
+
+
+  </li>
+
+
+      
+    
+      
+        
+
+  <li >
+    
+      
+
+  <a href="/docs/technical-architecture/security-architecture/" >
+      Security Architecture
+  </a>
+
+
+    
+
+    
+
+
+
+
+  
+  <ul>
+    
+  </ul>
+  
+
+
+
+  </li>
+
+
+      
+    
+  </ul>
+  
+
+
+
+  </li>
+
+
+      
+    
+      
+        
+
+  <li >
+    
+      
+
+  <a href="/docs/planning/" >
+      Planning
+  </a>
+
+
+    
+
+    
+
+
+
+
+  
+  <ul>
+    
+  </ul>
+  
+
+
+
+  </li>
+
+
+      
+    
+  </ul>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+  <strong>Infrastructure Architecture</strong>
+</header>
+
+      
+<article class="markdown"><h1 id="infrastructure-architecture">Infrastructure Architecture</h1>
+<p>The infrastructure setup is one of the biggest topics of this project in terms of size and complexity.</p>
+<blockquote>
+<p>TODO: Infrastructure Arch Diagram</p>
+</blockquote>
+<p>Two components are used to setup this architecture:</p>
+<ol>
+<li>Ansible, for bare metal server initialization and bare metal services.</li>
+<li>Kubernetes, for running processes which can be containerized</li>
+</ol>
+<p>The aim is to put as many of the services in Kubernetes, keeping the Ansible footprint as small as possible.
 Unfortunately there always needs to be an initial setup script, which is handled by the small footprint of Ansible.
-All other services need to run in Kubernetes, to improve portability and manageability.</p><h2 id=1-ansible---prepare-the-infrastructure-and-bare-metal-services>1. Ansible - Prepare the infrastructure and bare-metal services</h2><p>Since there's always a need for installing packages on the nodes directly and I don't want to just use a bunch of shell scripts all configuration and applications outside of k8s is deployed with Ansible which are directed by makefiles. Makefiles because I don't want to remember all commands that I need to spin up ansible by heart,Ansible because I want to semi-formalize the steps I take.
+All other services need to run in Kubernetes, to improve portability and manageability.</p>
+<h2 id="1-ansible---prepare-the-infrastructure-and-bare-metal-services">1. Ansible - Prepare the infrastructure and bare-metal services</h2>
+<p>Since there's always a need for installing packages on the nodes directly and I don't want to just use a bunch of shell scripts all configuration and applications outside of k8s is deployed with Ansible which are directed by makefiles. Makefiles because I don't want to remember all commands that I need to spin up ansible by heart,Ansible because I want to semi-formalize the steps I take.
 The goal here is to document every step, it does not matter how small, into an Ansible Playbook script.
-These Ansible scripts can be found on <a href=https://github.com/basraven/la1r/ansible>https://github.com/basraven/la1r/ansible</a></p><h3 id=makefiles-as-operators>Makefiles as operators</h3><p>Since I want to formalize everything into scripts, there needs to be a way to formalize how to call the different playbook with the appropriate arguments.
-This is why the Git repository contains 2 Makefiles. There has been chosen for Makefiles because the way these files are called is extremely predictable <code>make &lt;your command></code>:</p><ul><li><a href=/>Makefile for Ansible</a> - This makefile contains all the Ansible Playbook calls which are made to construct la1r on bare metal</li><li><a href=/>Makefile for Kubernetes</a> - This makefile contains all the used Kubernetes calls to setup the Kubernetes nodes. This also contains node setup scripts such as applying taints.</li></ul><h2 id=2-kubernetes-k8s>2. Kubernetes (k8s)</h2><p>K8s can be implemented in a million different ways. The implementation on La1r follows a few principles:</p><ul><li>K8s should run on bare metal only - it should not be dependent on any cloud resource, this includes function-as-service (FaaS) implementations such as AWS Lambda.</li><li>Vanilla k8s should be used - flavored variants of k8s take some controls away from the sys admin and introduce (sometimes unwanted) abstractions.</li><li>The latest k8s version should be used - this to incentive application of new k8s capabilities</li><li>Template engines, package managers and operators such as helm are not used - this again takes away a lot of control from the sys admin which takes away the learning experience, thus the fun.</li><li>K8s over bare metal - since the use of k8s incentives portability of applications, the default hosting approach should be on k8s not on the bare metal server itself (for example through Ansible). Only things that really make sense or are directly needed by the cluster itself, such as OpenVpn, can be implemented directly on the server with Ansible.</li></ul><h3 id=init-with-kubeadm>Init with kubeadm</h3><p>Since we're using vanilla k8s on bare metal but we do not have all the time in the world, the decision was made to use kubeadm to initialize the cluster and manage node cluster and upgrades. Several upgrades were already performed with this which went flawless, even with multi cpu (x86 and arm7) architecture environments.</p><h3 id=network-with-weaveworks>Network with WeaveWorks</h3><p>Initially the decision was made to use flannel as network provider, since this is a pretty standard choice for many k8s implementations. Unfortunately this gave several networking, performance and upgrading issues over time, especially with our multi cpu architects environment. After a tool selection process weave works came out best because:</p><ul><li>Substantial performance and stability improvements</li><li>Capable of complex network segregation which flannel was not able to do</li><li>Easy to setup, even if several sources on the way point out the opposite</li><li>Bonus: Weave works supplies a fancy and comprehensive dashboard of your entire network</li></ul><h3 id=node-agnostic-storage-coming-soon>Node agnostic storage (coming soon)</h3><p>Storage is often a difficult topic with k8s bare metal clusters, since the entire aim of k8s is to be independent and decoupled from infrastructure. This is why the current plan is to migrate all storage used by the cluster to a storage abstraction service, creating node agnostic storage facilities everywhere on the k8s cluster. The currently plan is to achieve this with Ceph through Rook.io, which also is an exception on the non-operator application architecture principle as mentioned earlier</p><h3 id=reverse-proxy-with-dmz-ed-online-exposure>Reverse proxy, with dmz-ed online exposure</h3><p>Traefik is used as reverse proxy for all default traffic, this because it easily integrates with k8s and it provides a fancy dashboard UI, and maybe because I'm traefik 2.0 contributor&mldr;
-Here my personal preference is to not follow the custom resource definition (CRD) hype and just use standard ingress objects, also for possible portability reasons if I ever get sick of traefik.</p></article><div class="book-footer justify-between"><div><a class="flex align-center" href=https://github.com/basraven/la1r/commit/d7fad39bba05242ab2fe9ef938c16a39e657e37d title="Last modified by Sebastiaan Raven | Jun 18, 2020" target=_blank><img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>Jun 18, 2020</span></a></div></div></div><aside class="book-toc levels-3 fixed"><nav id=TableOfContents><ul><li><a href=#infrastructure-architecture>Infrastructure Architecture</a><ul><li><a href=#1-ansible---prepare-the-infrastructure-and-bare-metal-services>1. Ansible - Prepare the infrastructure and bare-metal services</a><ul><li><a href=#makefiles-as-operators>Makefiles as operators</a></li></ul></li><li><a href=#2-kubernetes-k8s>2. Kubernetes (k8s)</a><ul><li><a href=#init-with-kubeadm>Init with kubeadm</a></li><li><a href=#network-with-weaveworks>Network with WeaveWorks</a></li><li><a href=#node-agnostic-storage-coming-soon>Node agnostic storage (coming soon)</a></li><li><a href=#reverse-proxy-with-dmz-ed-online-exposure>Reverse proxy, with dmz-ed online exposure</a></li></ul></li></ul></li></ul></nav></aside></main></body></html>
+These Ansible scripts can be found on <a href="https://github.com/basraven/la1r/ansible">https://github.com/basraven/la1r/ansible</a></p>
+<h3 id="makefiles-as-operators">Makefiles as operators</h3>
+<p>Since I want to formalize everything into scripts, there needs to be a way to formalize how to call the different playbook with the appropriate arguments.
+This is why the Git repository contains 2 Makefiles. There has been chosen for Makefiles because the way these files are called is extremely predictable <code>make &lt;your command&gt;</code>:</p>
+<ul>
+<li><a href="/">Makefile for Ansible</a> - This makefile contains all the Ansible Playbook calls which are made to construct la1r on bare metal</li>
+<li><a href="/">Makefile for Kubernetes</a> - This makefile contains all the used Kubernetes calls to setup the Kubernetes nodes. This also contains node setup scripts such as applying taints.</li>
+</ul>
+<h2 id="2-kubernetes-k8s">2. Kubernetes (k8s)</h2>
+<p>K8s can be implemented in a million different ways. The implementation on La1r follows a few principles:</p>
+<ul>
+<li>K8s should run on bare metal only - it should not be dependent on any cloud resource, this includes function-as-service (FaaS) implementations such as AWS Lambda.</li>
+<li>Vanilla k8s should be used - flavored variants of k8s take some controls away from the sys admin and introduce (sometimes unwanted) abstractions.</li>
+<li>The latest k8s version should be used - this to incentive application of new k8s capabilities</li>
+<li>Template engines, package managers and operators such as helm are not used - this again takes away a lot of control from the sys admin which takes away the learning experience, thus the fun.</li>
+<li>K8s over bare metal - since the use of k8s incentives portability of applications, the default hosting approach should be on k8s not on the bare metal server itself (for example through Ansible). Only things that really make sense or are directly needed by the cluster itself, such as OpenVpn, can be implemented directly on the server with Ansible.</li>
+</ul>
+<h3 id="init-with-kubeadm">Init with kubeadm</h3>
+<p>Since we're using vanilla k8s on bare metal but we do not have all the time in the world, the decision was made to use kubeadm to initialize the cluster and manage node cluster and upgrades. Several upgrades were already performed with this which went flawless, even with multi cpu (x86 and arm7) architecture environments.</p>
+<h3 id="network-with-weaveworks">Network with WeaveWorks</h3>
+<p>Initially the decision was made to use flannel as network provider, since this is a pretty standard choice for many k8s implementations. Unfortunately this gave several networking, performance and upgrading issues over time, especially with our multi cpu architects environment. After a tool selection process weave works came out best because:</p>
+<ul>
+<li>Substantial performance and stability improvements</li>
+<li>Capable of complex network segregation which flannel was not able to do</li>
+<li>Easy to setup, even if several sources on the way point out the opposite</li>
+<li>Bonus: Weave works supplies a fancy and comprehensive dashboard of your entire network</li>
+</ul>
+<h3 id="node-agnostic-storage-coming-soon">Node agnostic storage (coming soon)</h3>
+<p>Storage is often a difficult topic with k8s bare metal clusters, since the entire aim of k8s is to be independent and decoupled from infrastructure. This is why the current plan is to migrate all storage used by the cluster to a storage abstraction service, creating node agnostic storage facilities everywhere on the k8s cluster. The currently plan is to achieve this with Ceph through Rook.io, which also is an exception on the non-operator application architecture principle as mentioned earlier</p>
+<h3 id="reverse-proxy-with-dmz-ed-online-exposure">Reverse proxy, with dmz-ed online exposure</h3>
+<p>Traefik is used as reverse proxy for all default traffic, this because it easily integrates with k8s and it provides a fancy dashboard UI, and maybe because I'm traefik 2.0 contributor&hellip;
+Here my personal preference is to not follow the custom resource definition (CRD) hype and just use standard ingress objects, also for possible portability reasons if I ever get sick of traefik.</p>
+</article>
+
+      <div class="book-footer justify-between">
+  
+
+  
+  
+  <div>
+    
+    <a class="flex align-center" href="https://github.com/basraven/la1r/commit/d7fad39bba05242ab2fe9ef938c16a39e657e37d" title='Last modified by Sebastiaan Raven | Jun 18, 2020' target="_blank">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Jun 18, 2020</span>
+    </a>
+  </div>
+  
+  
+
+  
+
+</div>
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc levels-3 fixed">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#infrastructure-architecture">Infrastructure Architecture</a>
+      <ul>
+        <li><a href="#1-ansible---prepare-the-infrastructure-and-bare-metal-services">1. Ansible - Prepare the infrastructure and bare-metal services</a>
+          <ul>
+            <li><a href="#makefiles-as-operators">Makefiles as operators</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-kubernetes-k8s">2. Kubernetes (k8s)</a>
+          <ul>
+            <li><a href="#init-with-kubeadm">Init with kubeadm</a></li>
+            <li><a href="#network-with-weaveworks">Network with WeaveWorks</a></li>
+            <li><a href="#node-agnostic-storage-coming-soon">Node agnostic storage (coming soon)</a></li>
+            <li><a href="#reverse-proxy-with-dmz-ed-online-exposure">Reverse proxy, with dmz-ed online exposure</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+</body>
+
+</html>
